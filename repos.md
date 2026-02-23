@@ -276,8 +276,12 @@ Ruby on Rails CRM platform [http://www.fatfreecrm.com](http://www.fatfreecrm.com
 [https://github.com/fatfreecrm/fat_free_crm](https://github.com/fatfreecrm/fat_free_crm)
 
 ### feedbin
-A nice place to read on the web. [https://feedbin.com](https://feedbin.com)  
+A nice place to read on the web. [https://feedbin.com](https://feedbin.com)
 [https://github.com/feedbin/feedbin](https://github.com/feedbin/feedbin)
+
+### fizzy
+Kanban as it should be. Not as it has been. Built by 37signals.
+[https://github.com/basecamp/fizzy](https://github.com/basecamp/fizzy)
 
 ### feedbunch
 A simple and elegant feed reader. [http://feedbunch.com](http://feedbunch.com)  
@@ -495,8 +499,12 @@ The open source API directory of community social services. [http://ohana-api-de
 [https://github.com/codeforamerica/ohana-api](https://github.com/codeforamerica/ohana-api)
 
 ### on_ruby
-:gem: :diamonds: Whitelabel Site for Ruby Communities [http://www.onruby.eu](http://www.onruby.eu)  
+:gem: :diamonds: Whitelabel Site for Ruby Communities [http://www.onruby.eu](http://www.onruby.eu)
 [https://github.com/phoet/on_ruby](https://github.com/phoet/on_ruby)
+
+### once-campfire
+Campfire is a self-hosted group chat system with rooms, @mentions, direct messages, and mobile clients. Built by 37signals. [https://once.com/campfire](https://once.com/campfire)
+[https://github.com/basecamp/once-campfire](https://github.com/basecamp/once-campfire)
 
 ### open-build-service
 Build and distribute Linux packages from sources in an automatic, consistent and reproducible way #obs [https://openbuildservice.org](https://openbuildservice.org)  
@@ -798,8 +806,12 @@ Time and activity tracking web application for the rest of us.
 [https://github.com/theodi/uk-postcodes](https://github.com/theodi/uk-postcodes)
 
 ### upcase
-Sharpen your programming skills. [https://thoughtbot.com/upcase](https://thoughtbot.com/upcase)  
+Sharpen your programming skills. [https://thoughtbot.com/upcase](https://thoughtbot.com/upcase)
 [https://github.com/thoughtbot/upcase](https://github.com/thoughtbot/upcase)
+
+### upright
+Synthetic monitoring engine with Playwright and Prometheus metrics. Built by 37signals.
+[https://github.com/basecamp/upright](https://github.com/basecamp/upright)
 
 ### verboice
 Open source toolkit for voice services; with special focus to the needs of medium- and low-income countries, scalable services, and interacting with vulnerable populations [http://verboice.instedd.org/](http://verboice.instedd.org/)  

@@ -847,3 +847,15 @@
 	path = apps/kitsu-server
 	url = git@github.com:hummingbird-me/kitsu-server.git
 	branch = the-future
+[submodule "apps/upright"]
+	path = apps/upright
+	url = git@github.com:basecamp/upright.git
+	branch = main
+[submodule "apps/fizzy"]
+	path = apps/fizzy
+	url = git@github.com:basecamp/fizzy.git
+	branch = main
+[submodule "apps/once-campfire"]
+	path = apps/once-campfire
+	url = git@github.com:basecamp/once-campfire.git
+	branch = main
