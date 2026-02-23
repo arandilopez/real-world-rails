@@ -40,10 +40,21 @@ cd real-world-rails/
 bin/setup
 ```
 
+## Staying up to date
+
+Submodules are updated automatically via a GitHub Action that runs monthly and opens a PR. Once merged, you just need to pull:
+
+```bash
+git pull
+git submodule update
+```
+
+If you want to update all submodules to the absolute latest right now (without waiting for the monthly action), run `bin/update`.
+
 ## Scripts
 
 - **`bin/setup`** — Initialize and download all submodules (run after first clone)
-- **`bin/update`** — Pull latest changes and update all submodules
+- **`bin/update`** — Pull latest changes and update all submodules to their latest remote commits
 - **`bin/status`** — Show how many apps are initialized
 
 ## Contributing
