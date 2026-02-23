@@ -42,7 +42,7 @@ bin/setup
 
 ## Staying up to date
 
-Submodules are updated automatically via a GitHub Action that runs monthly and opens a PR. Once merged, you just need to pull:
+Submodules are updated automatically via a GitHub Action that runs weekly and opens a PR. Once merged, you just need to pull:
 
 ```bash
 git pull
@@ -56,6 +56,7 @@ If you want to update all submodules to the absolute latest right now (without w
 - **`bin/setup`** — Initialize and download all submodules (run after first clone)
 - **`bin/update`** — Pull latest changes and update all submodules to their latest remote commits
 - **`bin/status`** — Show how many apps are initialized
+- **`bin/add`** — Add a new app or engine by GitHub URL (e.g. `bin/add https://github.com/user/repo`)
 
 ## Contributing
 
@@ -71,10 +72,11 @@ Apps should:
 
 #### How to add a Real World Rails app
 
-Given a GitHub repo for a Rails app `githubuser/foo`:
-
 ```bash
-GIT_LFS_SKIP_SMUDGE=1 git submodule add -b <DEFAULT_BRANCH> git@github.com:githubuser/foo.git apps/foo
+bin/add https://github.com/githubuser/foo
+
+# For engines:
+bin/add https://github.com/githubuser/foo engine
 ```
 
 #### How to remove a submodule
