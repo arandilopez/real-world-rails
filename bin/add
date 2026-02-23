@@ -1,51 +1,116 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-if [ -z "$1" ]; then
-  echo "Usage: bin/add <github-url> [type]"
+################################################################################
+# Add a Real World Rails App or Engine
+################################################################################
+#
+# OVERVIEW
+# --------
+# Add a new Rails app or engine as a git submodule by GitHub URL. Automatically
+# detects the default branch.
+#
+# USAGE
+# -----
+#   bin/add <github-url> [type]
+#
+#   github-url  GitHub repo URL (e.g. https://github.com/user/repo)
+#   type        'app' (default) or 'engine'
+#
+# EXAMPLES
+# --------
+#   bin/add https://github.com/basecamp/kamal
+#   bin/add https://github.com/ankane/blazer engine
+#
+################################################################################
+
+# Colors
+green='\033[0;32m'
+red='\033[0;31m'
+nc='\033[0m'
+
+################################################################################
+# Main Orchestration
+################################################################################
+
+main() {
+  parse_arguments "$@"
+  parse_repo_url
+  check_not_exists
+  lookup_default_branch
+  add_submodule
+  show_next_steps
+}
+
+################################################################################
+# Helper Functions
+################################################################################
+
+log() { echo -e "${green}==>${nc} ${1}"; }
+error() { echo -e "${red}Error:${nc} ${1}" >&2; exit 1; }
+
+################################################################################
+# Core Functions
+################################################################################
+
+parse_arguments() {
+  if [ -z "${1:-}" ]; then
+    echo "Usage: bin/add <github-url> [type]"
+    echo ""
+    echo "  github-url  GitHub repo URL (e.g. https://github.com/user/repo)"
+    echo "  type        'app' (default) or 'engine'"
+    echo ""
+    echo "Examples:"
+    echo "  bin/add https://github.com/basecamp/kamal"
+    echo "  bin/add https://github.com/ankane/blazer engine"
+    exit 1
+  fi
+
+  url="$1"
+  type="${2:-app}"
+}
+
+parse_repo_url() {
+  repo_path=$(echo "$url" | sed 's|.*github.com/||' | sed 's|\.git$||' | sed 's|/$||')
+  name=$(basename "$repo_path")
+
+  if [ "$type" = "engine" ]; then
+    dest="engines/$name"
+  else
+    dest="apps/$name"
+  fi
+}
+
+check_not_exists() {
+  if [ -d "$dest" ]; then
+    error "$dest already exists"
+  fi
+}
+
+lookup_default_branch() {
+  log "Looking up default branch for $repo_path..."
+  default_branch=$(gh repo view "$repo_path" --json defaultBranchRef -q '.defaultBranchRef.name' 2>/dev/null || true)
+
+  if [ -z "$default_branch" ]; then
+    error "Could not find repo $repo_path"
+  fi
+}
+
+add_submodule() {
+  log "Adding $name ($default_branch branch) to $dest..."
+  GIT_LFS_SKIP_SMUDGE=1 git submodule add -b "$default_branch" "git@github.com:${repo_path}.git" "$dest"
+  log "Added $name to $dest"
+}
+
+show_next_steps() {
   echo ""
-  echo "  github-url  GitHub repo URL (e.g. https://github.com/user/repo)"
-  echo "  type        'app' (default) or 'engine'"
-  echo ""
-  echo "Examples:"
-  echo "  bin/add https://github.com/basecamp/kamal"
-  echo "  bin/add https://github.com/ankane/blazer engine"
-  exit 1
-fi
+  echo "Next steps:"
+  echo "  1. Add an entry to repos.md"
+  echo "  2. Commit and push"
+}
 
-url="$1"
-type="${2:-app}"
+################################################################################
+# Script Execution
+################################################################################
 
-# Parse owner/repo from URL
-repo_path=$(echo "$url" | sed 's|.*github.com/||' | sed 's|\.git$||' | sed 's|/$||')
-name=$(basename "$repo_path")
-
-if [ "$type" = "engine" ]; then
-  dest="engines/$name"
-else
-  dest="apps/$name"
-fi
-
-if [ -d "$dest" ]; then
-  echo "Error: $dest already exists"
-  exit 1
-fi
-
-# Get default branch
-echo "Looking up default branch for $repo_path..."
-default_branch=$(gh repo view "$repo_path" --json defaultBranchRef -q '.defaultBranchRef.name' 2>/dev/null)
-
-if [ -z "$default_branch" ]; then
-  echo "Error: Could not find repo $repo_path"
-  exit 1
-fi
-
-echo "Adding $name ($default_branch branch) to $dest..."
-GIT_LFS_SKIP_SMUDGE=1 git submodule add -b "$default_branch" "git@github.com:${repo_path}.git" "$dest"
-
-echo ""
-echo "Added $name to $dest"
-echo ""
-echo "Next steps:"
-echo "  1. Add an entry to repos.md"
-echo "  2. Commit and push"
+main "$@"
