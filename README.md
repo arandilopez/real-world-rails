@@ -92,5 +92,4 @@ git rm -f path/to/submodule
 - [Real World Nuxt](https://github.com/steveclarke/real-world-nuxt)
 - [Real World Ruby Apps](https://github.com/jeromedalbert/real-world-ruby-apps)
 - [Real World Sinatra](https://github.com/jeromedalbert/real-world-sinatra)
-- [Real World React](https://github.com/jeromedalbert/real-world-react)
 - [Real World Django](https://github.com/ckrybus/real-world-django)
