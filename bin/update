@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Updating Real World Rails..."
+echo ""
+echo "Pulling latest changes..."
+git pull
+
+echo ""
+echo "Updating all submodules to their latest versions..."
+GIT_LFS_SKIP_SMUDGE=1 git submodule update --remote --jobs 8
+
+echo ""
+echo "All done! Your Real World Rails apps are up to date."

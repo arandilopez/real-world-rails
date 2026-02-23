@@ -30,32 +30,21 @@ The `analyses/` directory is git-ignored — a safe place to store your own rese
 - Won't be committed or show up in pull requests
 - Keeps your workspace clean while working alongside the codebases
 
-## How to install on your computer
+## Getting started
 
 Ensure you have git-lfs installed: https://git-lfs.com
 
 ```bash
-# Clone this git repo:
 git clone git@github.com:steveclarke/real-world-rails.git
-
 cd real-world-rails/
-
-# The Rails apps are linked to as git submodules.
-GIT_LFS_SKIP_SMUDGE=1 git submodule update --init --single-branch --jobs 4
+bin/setup
 ```
 
-## How to update your local copy
+## Scripts
 
-Pull the latest commits from this repo and update submodules:
-```bash
-git pull
-GIT_LFS_SKIP_SMUDGE=1 git submodule update
-```
-
-To update all submodules to the latest remote commits:
-```bash
-git submodule update --remote --jobs 8
-```
+- **`bin/setup`** — Initialize and download all submodules (run after first clone)
+- **`bin/update`** — Pull latest changes and update all submodules
+- **`bin/status`** — Show how many apps are initialized
 
 ## Contributing
 
