@@ -32,6 +32,9 @@ The `analyses/` directory is git-ignored — a safe place to store your own rese
 
 ## Getting started
 
+> [!NOTE]
+> Running `bin/setup` clones all 200+ repositories as git submodules. This will use approximately **25 GB** of disk space.
+
 Ensure you have git-lfs installed: https://git-lfs.com
 
 ```bash
