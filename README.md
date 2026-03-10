@@ -33,7 +33,7 @@ The `analyses/` directory is git-ignored — a safe place to store your own rese
 ## Getting started
 
 > [!NOTE]
-> Running `bin/setup` clones all 200+ repositories as git submodules. This will use approximately **25 GB** of disk space.
+> Running `bin/setup` clones all 200+ repositories as git submodules. This will use approximately **10 GB** of disk space. Use `bin/setup --full` for complete git history (~29 GB).
 
 Ensure you have git-lfs installed: https://git-lfs.com
 
@@ -56,7 +56,9 @@ If you want to update all submodules to the absolute latest right now (without w
 
 ## Scripts
 
-- **`bin/setup`** — Initialize and download all submodules (run after first clone)
+- **`bin/setup`** — Initialize and download all submodules with shallow clone (run after first clone)
+  - `--full` — Clone with complete git history (~29 GB instead of ~10 GB)
+  - `--reset` — Re-download all submodules (use with default or `--full` to switch modes)
 - **`bin/update`** — Pull latest changes and update all submodules to their latest remote commits
 - **`bin/status`** — Show how many apps are initialized
 - **`bin/add`** — Add a new app or engine by GitHub URL (e.g. `bin/add https://github.com/user/repo`)
