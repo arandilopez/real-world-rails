@@ -11,7 +11,11 @@ set -euo pipefail
 #
 # USAGE
 # -----
-#   bin/setup
+#   bin/setup              # Full clone with complete git history (~23 GB)
+#   bin/setup --shallow    # Shallow clone, latest commit only (~3 GB)
+#
+# Existing users can switch to shallow clones to reclaim disk space:
+#   bin/setup --shallow --reset
 #
 ################################################################################
 
@@ -24,6 +28,12 @@ nc='\033[0m'
 ################################################################################
 
 main() {
+  parse_options "$@"
+
+  if [ "$RESET" = true ]; then
+    reset_submodules
+  fi
+
   init_submodules
   log "Setup complete! Explore the apps/ and engines/ directories."
   log "Run 'bin/update' anytime to pull the latest changes."
@@ -35,14 +45,42 @@ main() {
 
 log() { echo -e "${green}==>${nc} ${1}"; }
 
+parse_options() {
+  SHALLOW=false
+  RESET=false
+
+  for arg in "$@"; do
+    case "$arg" in
+      --shallow) SHALLOW=true ;;
+      --reset)   RESET=true ;;
+      *)
+        echo "Unknown option: $arg"
+        echo "Usage: bin/setup [--shallow] [--reset]"
+        exit 1
+        ;;
+    esac
+  done
+}
+
 ################################################################################
 # Core Functions
 ################################################################################
 
+reset_submodules() {
+  log "Removing existing submodules to re-clone..."
+  git submodule deinit --all --force
+}
+
 init_submodules() {
-  log "Initializing and downloading all submodules..."
-  log "This may take a few minutes on first run"
-  GIT_LFS_SKIP_SMUDGE=1 git submodule update --init --single-branch --jobs 4
+  if [ "$SHALLOW" = true ]; then
+    log "Initializing submodules with shallow clone (latest commit only)..."
+    log "This saves ~20 GB of disk space"
+    GIT_LFS_SKIP_SMUDGE=1 git submodule update --init --single-branch --depth 1 --jobs 4
+  else
+    log "Initializing submodules with full history..."
+    log "This may take a few minutes on first run"
+    GIT_LFS_SKIP_SMUDGE=1 git submodule update --init --single-branch --jobs 4
+  fi
 }
 
 ################################################################################
