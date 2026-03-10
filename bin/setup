@@ -11,11 +11,11 @@ set -euo pipefail
 #
 # USAGE
 # -----
-#   bin/setup              # Full clone with complete git history (~23 GB)
-#   bin/setup --shallow    # Shallow clone, latest commit only (~3 GB)
+#   bin/setup              # Shallow clone, latest commit only (~10 GB)
+#   bin/setup --full       # Full clone with complete git history (~29 GB)
 #
 # Existing users can switch to shallow clones to reclaim disk space:
-#   bin/setup --shallow --reset
+#   bin/setup --reset
 #
 ################################################################################
 
@@ -46,16 +46,16 @@ main() {
 log() { echo -e "${green}==>${nc} ${1}"; }
 
 parse_options() {
-  SHALLOW=false
+  FULL=false
   RESET=false
 
   for arg in "$@"; do
     case "$arg" in
-      --shallow) SHALLOW=true ;;
-      --reset)   RESET=true ;;
+      --full)  FULL=true ;;
+      --reset) RESET=true ;;
       *)
         echo "Unknown option: $arg"
-        echo "Usage: bin/setup [--shallow] [--reset]"
+        echo "Usage: bin/setup [--full] [--reset]"
         exit 1
         ;;
     esac
@@ -72,14 +72,14 @@ reset_submodules() {
 }
 
 init_submodules() {
-  if [ "$SHALLOW" = true ]; then
-    log "Initializing submodules with shallow clone (latest commit only)..."
-    log "This saves ~20 GB of disk space"
-    GIT_LFS_SKIP_SMUDGE=1 git submodule update --init --single-branch --depth 1 --jobs 4
-  else
-    log "Initializing submodules with full history..."
-    log "This may take a few minutes on first run"
+  if [ "$FULL" = true ]; then
+    log "Initializing submodules with full history (~29 GB)..."
+    log "This may take a while on first run"
     GIT_LFS_SKIP_SMUDGE=1 git submodule update --init --single-branch --jobs 4
+  else
+    log "Initializing submodules with shallow clone (latest commit only)..."
+    log "Use --full to include complete git history"
+    GIT_LFS_SKIP_SMUDGE=1 git submodule update --init --single-branch --depth 1 --jobs 4
   fi
 }
 
