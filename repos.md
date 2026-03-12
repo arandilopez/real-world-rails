@@ -667,8 +667,8 @@ RESTful Anti-Virus Endpoint server - provides a HTTPS endpoint to scan files for
 [https://github.com/ministryofjustice/rave-server](https://github.com/ministryofjustice/rave-server)
 
 ### redmine
-Redmine is a flexible project management web application written using Ruby on Rails framework.  http://github.com/edavis10/redmine is the official git mirror of the svn repository [http://www.redmine.org](http://www.redmine.org)  
-[https://github.com/edavis10/redmine](https://github.com/edavis10/redmine)
+Mirror of redmine code source - Official Subversion repository is at https://svn.redmine.org/redmine - contact: @vividtone or maeda (at) farend (dot) jp
+[https://github.com/redmine/redmine](https://github.com/redmine/redmine)
 
 ### refinerycms
 An extendable Ruby on Rails CMS that supports Rails 6.0+ [https://www.refinerycms.com/](https://www.refinerycms.com/)  

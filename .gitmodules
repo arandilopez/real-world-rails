@@ -72,7 +72,7 @@
 	branch = master
 [submodule "apps/redmine"]
 	path = apps/redmine
-	url = git@github.com:edavis10/redmine.git
+	url = git@github.com:redmine/redmine.git
 	branch = master
 [submodule "apps/amahi-platform"]
 	path = apps/amahi-platform
